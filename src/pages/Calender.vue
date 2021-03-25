@@ -10,7 +10,7 @@
    </section>
    <section class="flex flex-wrap">
        <p v-for="num in startDay()" :key="num" style="width: 14.28%" class="text-center"></p>
-       <p v-for="num in daysInMonth()" :key="num" style="width: 14.28%" class="text-center">{{ num }}</p>
+       <p v-for="num in daysInMonth()" :key="num" style="width: 14.28%" class="text-center" :class="currentDateClass(num)">{{ num }}</p>
    </section>
    <section class="flex justify-between my-4">
        <button class="px-2 border rounded" @click="previous">Previous</button>
@@ -23,6 +23,7 @@
 export default {
     data(){
         return {
+            currentDate: new Date().getUTCDate(),
             month: new Date().getMonth(),
             currentYear: new Date().getFullYear(),
             days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -36,11 +37,26 @@ export default {
             return new Date(this.currentYear, this.month, 1).getDay();
         },
         next(){
-            this.month++;
+            if(this.month == 11){
+                this.month = 0;
+                this.currentYear++;
+            }else{
+                this.month++;
+            }
         },
         previous(){
-            this.month--;
+            if(this.month == 0){
+                this.month = 11;
+                this.currentYear--;
+            }else{
+                this.month--;
+            }
         },
+        currentDateClass(num){
+            if(new Date(this.currentYear, this.month, num).toDateString() == new Date().toDateString()){
+                return "bg-green-400 text-white rounded-lg";
+            }
+        }
     },
     computed:{
         currentMonth(){

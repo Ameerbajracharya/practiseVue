@@ -1,18 +1,22 @@
 <template>
-<AppHeader />
+  <AppHeader @open-login-modal="isLoginOpen = true"/>
   <div class="w-full flex">
-    <!-- <DcHeros /> -->
-    <Calender/>
+    <router-view></router-view>
   </div>
+  <LoginModal v-if="isLoginOpen" @close-login="isLoginOpen = false"/>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader';
-import Calender from './components/Calender';
-// import DcHeros from './components/DcHeros';
+import LoginModal from './components/LoginModal';
 
 export default {
-  components: { AppHeader, Calender },
+  components: { AppHeader, LoginModal },
+  data(){
+      return {
+          isLoginOpen: false,
+      }
+  }
 }
 </script>
 

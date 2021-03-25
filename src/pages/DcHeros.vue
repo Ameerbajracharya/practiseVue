@@ -1,6 +1,6 @@
 <template>
     <div class="m-auto">
-        <h1 class="text-2xl text-center">Dc Heros {{ herosCount }}</h1>
+        <h1 class="text-2xl text-center my-2">Dc Heros {{ herosCount }}</h1>
         <ol>
         <li class="flex justify-between" v-for="(hero, index) in dcHeros" :key="hero.name">{{ hero.name }}
             <button @click="remove(index)">x</button>
