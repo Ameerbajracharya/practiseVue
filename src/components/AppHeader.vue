@@ -7,12 +7,18 @@
         class="mx-2">
         {{item.title}}
       </router-link>
-      <button class="mx-2" @click="$emit('open-login-modal')">Login</button>
+      <button v-if="isLoggedIn" class="mx-2" @click="logout">Logout</button>
+      <button v-else class="mx-2" @click="$emit('open-login-modal')">Login</button>
   </nav>
 </template>
 
 <script>
-export default {
+  import firebase from '../utilities/firebase';
+
+  export default {
+    props: {
+      isLoggedIn: {type: Boolean, required: false }
+    },
     data(){
       return {
         list: [
@@ -22,8 +28,19 @@ export default {
           {title:"Slider",    to:"/slider"},
         ]
       }
+    },
+    methods:{
+      logout(){
+        firebase.auth().signOut()
+        .then(res => {
+          console.log(res);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      }
     }
-}
+  }
 </script>
 
 <style>

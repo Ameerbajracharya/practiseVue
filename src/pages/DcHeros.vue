@@ -6,7 +6,7 @@
             <button @click="remove(index)">x</button>
         </li>
         </ol>
-        <input class="mt-10 border rounded p-1" type="text" v-model.trim="newHero" placeholder="Super Hero">
+        <input class="mt-10 border rounded p-1" type="text" v-model.trim="newHero" placeholder="Super Hero" ref="newHeroRef">
         <button @click="addHero()" class="border rounded bg-gradient-to-r from-green-700 to-green-500 text-white p-1 ml-1">Add Hero</button>
     </div>
 </template>
@@ -41,6 +41,9 @@
             herosCount(){
                 return this.dcHeros.length;
             },
+        },
+        mounted(){
+            this.$refs.newHeroRef.focus();
         }
     }
 </script>
